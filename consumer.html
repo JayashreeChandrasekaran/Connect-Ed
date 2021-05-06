@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>meetup_VS</title>
+	<meta charset="utf-8">
+  	<meta name="viewport" content="width=device-width, initial-scale=1">
+  	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<!--Color Code
+	green-#00a896
+	light green-#02c39a
+	grey-#282828-->
+	<style type="text/css">
+		/*.bgc{
+			background-color: #282828;
+			opacity: 0.9;
+
+		}
+		.border{
+			border-radius: 2em;
+			margin-top: 2em;
+		}*/
+		.btn{
+			background-color: #02c39a;
+			width: 100%;
+		}
+		.ade{
+			width: 100%;
+		}
+		#mainbox{
+ font-size: 24px;
+ cursor: pointer;
+ transition: all .6s;
+}
+.mainbox img{
+  margin-top: 80%;
+  margin-left: 20%;
+}
+.sidemenu{
+ position: fixed;
+ top: 0px;
+ left: 0px;
+ height: 100%;
+ width: 0px;
+ background-color: #222;
+ opacity: 0.8;
+ z-index: 1;
+ padding-top: 100px;
+ overflow-x: hidden;
+ transition: all .5s;
+}
+.sidemenu img{
+  opacity: none;
+  margin-left: 40%;
+}
+.sidemenu h1,input{ 
+  margin-left: 42%;
+}
+.sidemenu a{
+ padding: 8px 8px 8px 64px;
+ text-decoration: none;
+ font-size: 20px;
+ color: #999;
+ display: block;
+}
+.sidemenu a:hover{
+  color: white;
+}
+.sidemenu .closebtn{
+ position: absolute;
+ top: 0px;
+ right: 25px;
+ font-size: 36px;
+ margin-left: 32px;
+}
+
+
+.userBox{
+  float: right;
+}
+@media screen and (max-width:1160px){
+  .sidemenu img{
+    margin-left: 50%;
+  }
+}
+@media screen and (max-width:1140px){
+  .sidemenu img{
+   display: block;
+   margin: 0 auto;
+   position: relative;
+   overflow-x: hidden;
+  }
+}
+
+	</style>
+<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-4 bgc pt-5">
+				<img src="profilconsumer.jpg" width="300px">
+				<p class="pl-4">Eminem</p>
+				<p class="pl-4">alaneminem30@gmail.com</p>
+				<br><hr>
+
+				<p class="pl-4">Category</p>
+				<p class="pl-4">Setting</p>
+				<p class="pl-4">Cart</p>
+				<p>
+					<div id="mainbox" onclick="openFunction()"><img src="chat.png" /></div>
+                                 <div id="menu" class="sidemenu">        	               	
+                                       <img src="Images/chat.png">
+                                         <h1 id="chatLog" style="color: white;">- - WALL-E - - CHATBOT-  -<br>
+                    	               </h1>
+                                         <a href="#"> <input id="userBox" type="text" onkeydown="if(event.keyCode == 13){talk()}"></a>                      
+                                        <a href="#" class="closebtn" onclick="closeFunction()">&times;</a>
+                                </div>
+				</p>
+			</div>
+			<div class="col-md-8 pt-5"><!------------>
+				<button class="btn" onclick="runSpeechRecognition()" > speak with us</button>
+				 <span id="action"></span>
+       
+        <div id="output" class="hide"></div>
+
+        <!------------------>
+				<div class="row">
+					<div class="col-md-4 pt-4">
+						<div class="card">
+							<div class="card-body">
+								<img src="cat.jpg" class="ade">
+							</div>
+							<div class="card-footer">
+								<p>Carrot</p>
+								<p>$ 25 </p>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4 pt-4">
+						<div class="card">
+							<div class="card-body">
+								<img src="onion.jpg" class="ade">
+							</div>
+							<div class="card-footer">
+								<p>onion</p>
+								<p>$ 30 </p>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4 pt-4">
+						<div class="card">
+							<div class="card-body">
+								<img src="tom.jpg" class="ade">
+							</div>
+							<div class="card-footer">
+								<p>Tomato</p>
+								<p>$ 25 </p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>                                                                      
+		</div>
+	</div>
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+	<script type="text/javascript">
+		 function runSpeechRecognition() {
+          var output = document.getElementById("output");          
+            var action = document.getElementById("action");               
+                var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
+                var recognition = new SpeechRecognition();            
+                recognition.onstart = function() {
+                    action.innerHTML = "<small>Say Place name...</small>";
+                };                
+                recognition.onspeechend = function() {
+                    action.innerHTML = "<small>stopped listening, hope you are done...</small>";
+                    recognition.stop();
+                }              
+                recognition.onresult = function(event) {
+                    var transcript = event.results[0][0].transcript;           
+                    output.classList.remove("hide");
+                if(transcript.match("Coimbatore")){
+                let msg = "Search Results for coimbatore";
+                let speech = new SpeechSynthesisUtterance();
+                speech.lang = "en-US";                
+                speech.text = msg;
+                speech.volume = 1;
+                speech.rate = 1;
+                speech.pitch = 1;                
+                window.speechSynthesis.speak(speech);
+                var button="<ul><li>Alan</li><li>Wiz</li></ul>";
+                document.getElementById("output").innerHTML=button;            
+                }
+                else{
+                  let msg1="OOops!!Sorry I couldn't find you Please Sign up to connect with your customers";
+                let speech1 = new SpeechSynthesisUtterance();
+                speech1.lang = "en-US";                
+                speech1.text = msg1;
+                speech1.volume = 1;
+                speech1.rate = 1;
+                speech1.pitch = 1;                
+                window.speechSynthesis.speak(speech1);
+                }
+                };       
+                 recognition.start();
+                  }  
+	</script>
+	<script type="text/javascript">
+		  function openFunction(){
+                    document.getElementById("menu").style.width="100%";
+                         document.getElementById("mainbox").style.marginLeft="300px";
+                          }
+                  function closeFunction(){
+                   document.getElementById("menu").style.width="0px";
+                 document.getElementById("mainbox").style.marginLeft="0px";
+                    document.getElementById("mainbox").innerHTML.style='background-image:url("Images/chat.png")';
+               }
+
+                var know = {
+            "hello":"HI",
+            "how are you?":"GOOD",
+            
+            "Could you contact Support Team":"YEAH SURE",
+            "Can you store the list of my products":"YEAH SURE,THAT'S MY PLEASURE",
+            "Share my list of Products":"Your products are<br/> 1.Mushroom<br/>2.Tomatoes<br/>3.Potatoes<br/>",
+            "Who are you?":"I'm WALL-E,Your Personal ChatBot",
+            "List out the price of my Products":"Tomato:10;<br/>Potatoes:8;<br/>Mushroom:25;<br/>Beans:25",
+            "Can you contact with Alan":"Yeah!!Sure",
+            "List out the Price of each Product of Alan":"Tomato:10;<br/>Potatoes:8;<br/>Mushroom:25;<br/>Beans:25",
+            "Place Order of Tomatoes 2Kg":"Yeah Sure..Soon Alan will Contact you with the help of iRIS"
+
+            // You Can Add More Stuff Here - It is customizable. - you can add more than 3 
+        };
+        function talk() {
+             var user =document.getElementById("userBox") .value;           
+             document.getElementById("chatLog").innerHTML +=user+"<br>";            
+            if(user in know){
+                document.getElementById("chatLog").innerHTML += know[user]+"<br>";
+            } else{
+                document.getElementById("chatLog").innerHTML+="I am not a genius , ask me something that I know!<br>";}}
+	
+	</script>
+</body>
+</html>
